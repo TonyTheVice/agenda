@@ -29,6 +29,10 @@
   background-color: lightgreen;
 }
 
+.calendar-day.selected {
+  background-color: lightblue;
+}
+
 .calendar-day-header {
   font-weight: bold;
 }

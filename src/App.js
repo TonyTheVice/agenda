@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <h1>Agenda</h1>
       <div className="main">
-        <Calendar onDayClick={handleDayClick} />
+        <Calendar onDayClick={handleDayClick} selectedDay={selectedDay} />
         {selectedDay && <DayView selectedDay={selectedDay} />}
       </div>
     </div>

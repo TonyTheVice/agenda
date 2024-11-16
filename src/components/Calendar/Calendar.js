@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Calendar.css";
 
-const Calendar = ({ onDayClick }) => {
+const Calendar = ({ onDayClick, selectedDay }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentView, setCurrentView] = useState("monthly"); // "monthly" or "weekly"
@@ -99,12 +99,11 @@ const Calendar = ({ onDayClick }) => {
               <div
                 key={day}
                 className={`calendar-day ${
-                  day === today.getDate() &&
-                  currentMonth === today.getMonth() &&
-                  currentYear === today.getFullYear()
-                    ? "today"
+                  (selectedDay === `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)
+                    ? "selected"
                     : ""
-                }`}
+                } ${day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear() ? "today" : ""}`}
+                
                 onClick={() => onDayClick(`${currentYear}-${currentMonth + 1}-${day}`)}
               >
                 {day}
@@ -132,8 +131,11 @@ const Calendar = ({ onDayClick }) => {
               <div
                 key={date.toDateString()}
                 className={`calendar-day ${
-                  date.toDateString() === today.toDateString() ? "today" : ""
-                }`}
+                  selectedDay === `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+                    ? "selected"
+                    : ""
+                } ${date.toDateString() === today.toDateString() ? "today" : ""}`}
+                
                 onClick={() => onDayClick(date.toISOString().split("T")[0])}
               >
                 <div className="calendar-day-header">
