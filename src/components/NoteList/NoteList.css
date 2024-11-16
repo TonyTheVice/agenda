@@ -1,0 +1,11 @@
+.note-list {
+    margin-top: 20px;
+  }
+  
+  .note {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+  }
+  

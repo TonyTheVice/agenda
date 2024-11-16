@@ -1,0 +1,44 @@
+https://console.firebase.google.com/u/0/project/agenda-8640a/database/agenda-8640a-default-rtdb/data
+
+npm start
+npm run electron
+
+npm run build
+npm run electron-builder --win --x64
+
+
+View Calendar:
+
+The user should be able to view a calendar interface that displays the current month with all the days.
+The user should be able to click on any day to view or add notes.
+
+Add Notes for a Specific Day:
+
+The user can add notes for a specific day (e.g., tasks, reminders, events).
+The user should be able to type and save notes for the selected day.
+Notes should persist until the user manually deletes them.
+
+View Notes for a Specific Day:
+
+The user should be able to view all notes added for a selected day.
+Notes should be displayed in a simple list format under the selected day in the calendar.
+
+Delete Notes:
+
+The user can delete notes they've added for a specific day.
+Deleted notes should be removed from the database and UI.
+
+Edit Notes:
+
+The user should be able to edit an existing note.
+The changes should be updated in the database and reflected in the UI.
+
+View Week/Month Overview:
+
+The user can toggle between viewing the current day's notes, the entire week, or the full month.
+This view should allow the user to easily navigate between days, weeks, and months.
+
+Search Notes:
+
+The user can search for notes containing certain keywords (e.g., "meeting", "birthday").
+Results should be displayed in a list, grouped by the relevant day.

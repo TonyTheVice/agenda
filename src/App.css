@@ -1,0 +1,17 @@
+.App {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.main {
+  display: flex;
+  gap: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+}

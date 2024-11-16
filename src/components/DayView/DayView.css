@@ -1,0 +1,11 @@
+.day-view {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .day-view h2 {
+    text-align: center;
+  }
+  
