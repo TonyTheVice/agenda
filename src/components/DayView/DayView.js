@@ -31,10 +31,16 @@ const DayView = ({ selectedDay }) => {
       let updatedNotes = [...notes];
       if (editNoteIndex !== null) {
         // If editing, update the specific note
-        updatedNotes[editNoteIndex] = note;
+        updatedNotes[editNoteIndex] = { 
+          ...note,
+          notified: note.notified !== undefined ? note.notified : false, 
+        };
       } else {
         // Otherwise, add the new note
-        updatedNotes.push(note);
+        updatedNotes.push({ 
+          ...note,
+          notified: note.notified !== undefined ? note.notified : false,
+        });
       }
 
       // Save updated notes back to Firebase Realtime Database

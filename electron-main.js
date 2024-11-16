@@ -1,5 +1,4 @@
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
+const { app, BrowserWindow, Notification, ipcMain } = require('electron');
 
 let win;
 
@@ -9,10 +8,10 @@ function createWindow() {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false, // Required for `ipcRenderer`
     },
   });
 
-  // Make sure to load the React app from localhost:3000
   win.loadURL('http://localhost:3000');
   //win.loadFile(path.join(__dirname, 'build', 'index.html'));
 
@@ -33,4 +32,13 @@ app.on('activate', () => {
   if (win === null) {
     createWindow();
   }
+});
+
+// Listen for the 'notify' event and show a notification
+ipcMain.on('notify', (_, { title, body }) => {
+  const notification = new Notification({
+    title: title,
+    body: body,
+  });
+  notification.show();
 });
