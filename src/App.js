@@ -8,6 +8,7 @@ import { db } from './firebase'; // Import Firebase Realtime Database functions
 function App() {
   const [selectedDay, setSelectedDay] = useState(null);
   const [notes, setNotes] = useState([]); // State to hold the notes
+  const [dayNotes, setDayNotes] = useState([]); // State to hold the day notes
   const { ipcRenderer } = window.require('electron'); // Import ipcRenderer for communication with the main process
 
   const handleDayClick = (day) => {
@@ -28,7 +29,7 @@ function App() {
     };
   
     fetchNotes();
-  }, []); // Empty dependency array means this effect will run once when the component mounts
+  }, [dayNotes]); // Empty dependency array means this effect will run once when the component mounts
   
 
   useEffect(() => {
@@ -107,7 +108,7 @@ function App() {
     <div className="App">
       <div className="main">
         <Calendar onDayClick={handleDayClick} selectedDay={selectedDay} />
-        {selectedDay && <DayView selectedDay={selectedDay} />}
+        {selectedDay && <DayView notes={dayNotes} setNotes={setDayNotes} selectedDay={selectedDay} />}
       </div>
     </div>
   );

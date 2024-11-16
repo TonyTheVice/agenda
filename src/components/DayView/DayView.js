@@ -5,8 +5,7 @@ import NoteInput from "../NoteInput/NoteInput";
 import NoteList from "../NoteList/NoteList";
 import { db } from "../../firebase"; // Import Firebase Realtime Database functions
 
-const DayView = ({ selectedDay }) => {
-  const [notes, setNotes] = useState([]);
+const DayView = ({ selectedDay, notes, setNotes }) => {
   const [editNoteIndex, setEditNoteIndex] = useState(null);
 
   // Fetch notes from Firebase Realtime Database when the component mounts
