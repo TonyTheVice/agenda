@@ -8,7 +8,7 @@ import { db } from './firebase'; // Import Firebase Realtime Database functions
 function App() {
   const [selectedDay, setSelectedDay] = useState(null);
   const [notes, setNotes] = useState([]); // State to hold the notes
- const { ipcRenderer } = window.require('electron'); // Import ipcRenderer for communication with the main process
+  const { ipcRenderer } = window.require('electron'); // Import ipcRenderer for communication with the main process
 
   const handleDayClick = (day) => {
     setSelectedDay(day);
@@ -41,7 +41,24 @@ function App() {
         // Only check notes for the current day
         if (day === currentDay) {
           notes[day].forEach((note, index) => {
-            if (!note.isAllDay && note.time) {
+            // Check if the note is an all-day event or has a specific time
+            if (note.isAllDay) {
+              // For all-day events, trigger a notification if it's the current day
+              if (!note.notified) {
+                console.log("Trigger notification for all-day event:", note.text);
+                ipcRenderer.send('notify', {
+                  title: 'Reminder',
+                  body: note.text,
+                });
+
+                // Mark the note as notified
+                notes[day][index].notified = true; // Mark as notified within the current note array
+
+                // Update Firebase with the changed notes
+                const notesRef = ref(db, 'notes/' + day);
+                set(notesRef, notes[day]); // Save the updated notes for this day to Firebase
+              }
+            } else if (note.time) {
               const [hour, minute] = note.time.split(':');
 
               // Extract year, month, and day from the 'day' variable (currentDay)
@@ -55,12 +72,11 @@ function App() {
               // Check if the current time (`now`) is greater than or equal to the `noteTime`
               // and if the notification has not already been triggered
               if (noteTime <= now && !note.notified) {
-                console.log("Trigger notification for note:", note.text);
-                // Trigger notification (this part can be modified based on your setup)
-                 ipcRenderer.send('notify', {
+                console.log("Trigger notification for time-based note:", note.text);
+                ipcRenderer.send('notify', {
                   title: 'Reminder',
                   body: note.text,
-                }); 
+                });
 
                 // Mark the note as notified
                 notes[day][index].notified = true; // Mark as notified within the current note array
