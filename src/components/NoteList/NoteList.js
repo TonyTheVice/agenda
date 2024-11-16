@@ -17,7 +17,7 @@ const NoteList = ({ notes, onDeleteNote, onEditNote }) => {
           </div>
         ))
       ) : (
-        <p>No notes for this day.</p>
+        <p className="no-notes-warning">No notes for this day.</p>
       )}
     </div>
   );

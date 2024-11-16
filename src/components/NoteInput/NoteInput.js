@@ -39,7 +39,7 @@ const NoteInput = ({ onSaveNote, editingNote }) => {
         onChange={(e) => setText(e.target.value)}
       ></textarea>
       <div className="note-time">
-        <label>
+        <label className="label-allday">
           <input
             type="checkbox"
             checked={isAllDay}

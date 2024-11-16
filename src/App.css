@@ -1,11 +1,15 @@
 .App {
+  height: 100%;
   font-family: Arial, sans-serif;
-  padding: 20px;
 }
 
 .main {
+  height: 100%;
   display: flex;
   gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
 }
 
 h1 {

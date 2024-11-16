@@ -1,5 +1,4 @@
 .calendar {
-  margin: 1rem auto;
   text-align: center;
   max-width: 800px;
 }
@@ -10,6 +9,7 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 1rem;
+  color: #5d001e;
 }
 
 .calendar-grid {
@@ -18,11 +18,27 @@
   gap: 10px;
 }
 
+.calendar-date-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-date-label {
+  margin: 0
+}
+
 .calendar-day {
-  padding: 10px;
-  border: 1px solid #ccc;
+  padding: 50px;
+  border: 1px solid #5d001e;
   text-align: center;
   cursor: pointer;
+}
+
+.calendar-day-header {
+  background-color: #5d001e;
+  color: white;
+  padding: 8px;
+  border-radius: 24px;
 }
 
 .calendar-day.today {

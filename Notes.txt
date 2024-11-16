@@ -1,4 +1,6 @@
 https://console.firebase.google.com/u/0/project/agenda-8640a/database/agenda-8640a-default-rtdb/data
+https://github.com/TonyTheVice/agenda
+
 
 npm start
 npm run electron
@@ -7,6 +9,18 @@ npm run build
 npm run electron-builder --win --x64
 
 16/11 - 5 horas
+17/11 - 3 horas
+
+
+Next steps:
+- Change everything to material ui - icons, typography ...
+- Make month view and weekly view a single button and separate from Calendar component
+- Keep changing styles
+- Make the squares show which days have notes
+- Make a "All notes" view
+- Make it possible to send a notification(with sound) when the time comes for a note
+- Add a "next releases" page
+
 
 
 View Calendar:

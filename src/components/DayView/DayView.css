@@ -1,11 +1,14 @@
 .day-view {
-    margin: 20px;
-    padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
+    height: 90%;
+    width: 30%;
+    padding: 24px;
+    background: #5d001e;
   }
   
   .day-view h2 {
     text-align: center;
+    color: white
   }
   

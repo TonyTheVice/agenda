@@ -14,7 +14,7 @@ const Calendar = ({ onDayClick, selectedDay }) => {
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
 
   // Day names
-  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const dayNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
 
   // Generate days array for the monthly view
   const daysArray = Array.from({ length: daysInMonth }, (_, index) => index + 1);
@@ -77,12 +77,17 @@ const Calendar = ({ onDayClick, selectedDay }) => {
         <>
           <div className="calendar-header">
             <button onClick={prevMonth}>&lt; Prev Month</button>
-            <h2>
-              {new Date(currentYear, currentMonth).toLocaleString("default", {
-                month: "long",
-              })}{" "}
+            <div className="calendar-date-title">
+              <h2 className="calendar-date-label">
               {currentYear}
-            </h2>
+                {" "}
+              </h2>
+              <h2 className="calendar-date-label">
+                {new Date(currentYear, currentMonth)
+                  .toLocaleString("default", { month: "long" })
+                  .replace(/^\w/, (c) => c.toUpperCase())}
+              </h2>
+            </div>
             <button onClick={nextMonth}>Next Month &gt;</button>
           </div>
 
@@ -99,8 +104,8 @@ const Calendar = ({ onDayClick, selectedDay }) => {
               <div
                 key={day}
                 className={`calendar-day ${(selectedDay === `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)
-                    ? "selected"
-                    : ""
+                  ? "selected"
+                  : ""
                   } ${day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear() ? "today" : ""}`}
 
                 onClick={() => onDayClick(`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)}
@@ -130,8 +135,8 @@ const Calendar = ({ onDayClick, selectedDay }) => {
               <div
                 key={date.toDateString()}
                 className={`calendar-day ${selectedDay === `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
-                    ? "selected"
-                    : ""
+                  ? "selected"
+                  : ""
                   } ${date.toDateString() === today.toDateString() ? "today" : ""}`}
 
                 onClick={() => onDayClick(date.toISOString().split("T")[0])}             >
