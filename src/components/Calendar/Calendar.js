@@ -98,13 +98,12 @@ const Calendar = ({ onDayClick, selectedDay }) => {
             {daysArray.map((day) => (
               <div
                 key={day}
-                className={`calendar-day ${
-                  (selectedDay === `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)
+                className={`calendar-day ${(selectedDay === `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)
                     ? "selected"
                     : ""
-                } ${day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear() ? "today" : ""}`}
-                
-                onClick={() => onDayClick(`${currentYear}-${currentMonth + 1}-${day}`)}
+                  } ${day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear() ? "today" : ""}`}
+
+                onClick={() => onDayClick(`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)}
               >
                 {day}
               </div>
@@ -130,14 +129,12 @@ const Calendar = ({ onDayClick, selectedDay }) => {
             {currentWeekDays.map((date) => (
               <div
                 key={date.toDateString()}
-                className={`calendar-day ${
-                  selectedDay === `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+                className={`calendar-day ${selectedDay === `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
                     ? "selected"
                     : ""
-                } ${date.toDateString() === today.toDateString() ? "today" : ""}`}
-                
-                onClick={() => onDayClick(date.toISOString().split("T")[0])}
-              >
+                  } ${date.toDateString() === today.toDateString() ? "today" : ""}`}
+
+                onClick={() => onDayClick(date.toISOString().split("T")[0])}             >
                 <div className="calendar-day-header">
                   {date.toLocaleString("default", { weekday: "short" })}
                 </div>
