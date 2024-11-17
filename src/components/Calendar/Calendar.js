@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import { Typography } from "@mui/material";
 import "./Calendar.css";
 
-const Calendar = ({ onDayClick, selectedDay }) => {
+const Calendar = ({ onDayClick, selectedDay, currentView }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [currentView, setCurrentView] = useState("monthly"); // "monthly" or "weekly"
   const [selectedWeekStart, setSelectedWeekStart] = useState(new Date()); // Start of the current week
 
   const today = new Date();
@@ -19,8 +19,6 @@ const Calendar = ({ onDayClick, selectedDay }) => {
   // Generate days array for the monthly view
   const daysArray = Array.from({ length: daysInMonth }, (_, index) => index + 1);
 
-  // Switch between views
-  const toggleView = (view) => setCurrentView(view);
 
   // Navigate months
   const nextMonth = () => {
@@ -67,88 +65,90 @@ const Calendar = ({ onDayClick, selectedDay }) => {
   const currentWeekDays = getWeekDays(selectedWeekStart);
 
   return (
-    <div className="calendar">
-      <div className="calendar-header">
-        <button onClick={() => toggleView("monthly")}>Monthly View</button>
-        <button onClick={() => toggleView("weekly")}>Weekly View</button>
-      </div>
-
-      {currentView === "monthly" ? (
-        <>
-          <div className="calendar-header">
-            <button onClick={prevMonth}>&lt; Prev Month</button>
-            <div className="calendar-date-title">
-              <h2 className="calendar-date-label">
-              {currentYear}
-                {" "}
-              </h2>
-              <h2 className="calendar-date-label">
-                {new Date(currentYear, currentMonth)
-                  .toLocaleString("default", { month: "long" })
-                  .replace(/^\w/, (c) => c.toUpperCase())}
-              </h2>
+    <div className="calendar-root">
+      <Typography variant="h1" className="calendar-year" >
+        {currentYear}
+      </Typography>
+      <div className="calendar">
+        {currentView === "monthly" ? (
+          <>
+            <div className="calendar-header">
+              <button onClick={prevMonth}>&lt; Prev Month</button>
+              <div className="calendar-date-title">
+                <h2 className="calendar-date-label">
+                  {new Date(currentYear, currentMonth)
+                    .toLocaleString("default", { month: "long" })
+                    .replace(/^\w/, (c) => c.toUpperCase())}
+                </h2>
+              </div>
+              <button onClick={nextMonth}>Next Month &gt;</button>
             </div>
-            <button onClick={nextMonth}>Next Month &gt;</button>
-          </div>
 
-          <div className="calendar-grid">
-            {dayNames.map((dayName) => (
-              <div key={dayName} className="calendar-day-header">
-                {dayName}
-              </div>
-            ))}
-            {Array.from({ length: firstDayOfMonth }).map((_, index) => (
-              <div key={index} className="calendar-day empty"></div>
-            ))}
-            {daysArray.map((day) => (
-              <div
-                key={day}
-                className={`calendar-day ${(selectedDay === `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)
-                  ? "selected"
-                  : ""
-                  } ${day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear() ? "today" : ""}`}
-
-                onClick={() => onDayClick(`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)}
-              >
-                {day}
-              </div>
-            ))}
-          </div>
-        </>
-      ) : (
-        // Weekly view
-        <>
-          <div className="calendar-header">
-            <button onClick={prevWeek}>&lt; Prev Week</button>
-            <h2>
-              Week of{" "}
-              {selectedWeekStart.toLocaleDateString("default", {
-                month: "long",
-                day: "numeric",
-              })}
-            </h2>
-            <button onClick={nextWeek}>Next Week &gt;</button>
-          </div>
-
-          <div className="calendar-grid weekly-view">
-            {currentWeekDays.map((date) => (
-              <div
-                key={date.toDateString()}
-                className={`calendar-day ${selectedDay === `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
-                  ? "selected"
-                  : ""
-                  } ${date.toDateString() === today.toDateString() ? "today" : ""}`}
-
-                onClick={() => onDayClick(date.toISOString().split("T")[0])}             >
-                <div className="calendar-day-header">
-                  {date.toLocaleString("default", { weekday: "short" })}
+            <div className="calendar-grid">
+              {dayNames.map((dayName) => (
+                <div key={dayName} className="calendar-day-header">
+                  {dayName}
                 </div>
-                <div className="calendar-day-number">{date.getDate()}</div>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
+              ))}
+              {Array.from({ length: firstDayOfMonth }).map((_, index) => (
+                <div key={index} className="calendar-day empty"></div>
+              ))}
+              {daysArray.map((day) => (
+                <div
+                  key={day}
+                  className={`calendar-day ${(selectedDay === `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)
+                    ? "selected"
+                    : ""
+                    } ${day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear() ? "today" : ""}`}
+
+                  onClick={() => onDayClick(`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)}
+                >
+                  {day}
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          // Weekly view
+          <>
+            <div className="calendar-header">
+              <button onClick={prevWeek}>&lt; Prev Week</button>
+              <h2>
+                Semana de{" "}
+                {selectedWeekStart
+                  .toLocaleDateString("default", {
+                    month: "long",
+                    day: "numeric",
+                  })
+                  .replace(/(\sde\s)([a-z])/g, (_, preposition, monthChar) => {
+                    return `${preposition}${monthChar.toUpperCase()}`;
+                  })}
+              </h2>
+              <button onClick={nextWeek}>Next Week &gt;</button>
+            </div>
+
+            <div className="calendar-grid weekly-view">
+              {dayNames.map((dayName) => (
+                <div key={dayName} className="calendar-day-header">
+                  {dayName}
+                </div>
+              ))}
+              {currentWeekDays.map((date) => (
+                <div
+                  key={date.toDateString()}
+                  className={`calendar-day ${selectedDay === `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+                    ? "selected"
+                    : ""
+                    } ${date.toDateString() === today.toDateString() ? "today" : ""}`}
+
+                  onClick={() => onDayClick(date.toISOString().split("T")[0])}             >
+                  <div className="calendar-day-number">{date.getDate()}</div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Calendar from './components/Calendar/Calendar';
 import DayView from './components/DayView/DayView';
+import Header from './components/Header/Header';
 import { get, ref, set } from 'firebase/database';
 import { db } from './firebase'; // Import Firebase Realtime Database functions
 
@@ -9,7 +10,8 @@ function App() {
   const [selectedDay, setSelectedDay] = useState(null);
   const [notes, setNotes] = useState([]); // State to hold the notes
   const [dayNotes, setDayNotes] = useState([]); // State to hold the day notes
-  const { ipcRenderer } = window.require('electron'); // Import ipcRenderer for communication with the main process
+  const [calendarView, setCalendarView] = useState('monthly'); // Manage calendar view state
+  //const { ipcRenderer } = window.require('electron'); // Import ipcRenderer for communication with the main process
 
   const handleDayClick = (day) => {
     setSelectedDay(day);
@@ -21,16 +23,16 @@ function App() {
       const snapshot = await get(notesRef);
       if (snapshot.exists()) {
         const allNotes = snapshot.val(); // Get all notes from the database
-  
+
         setNotes(allNotes); // Set the notes state as the raw structure with days as keys
       } else {
         setNotes([]); // No notes in the database
       }
     };
-  
+
     fetchNotes();
   }, [dayNotes]); // Empty dependency array means this effect will run once when the component mounts
-  
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -47,10 +49,10 @@ function App() {
               // For all-day events, trigger a notification if it's the current day
               if (!note.notified) {
                 console.log("Trigger notification for all-day event:", note.text);
-                ipcRenderer.send('notify', {
+                /*ipcRenderer.send('notify', {
                   title: 'Reminder',
                   body: note.text,
-                });
+                });*/
 
                 // Mark the note as notified
                 notes[day][index].notified = true; // Mark as notified within the current note array
@@ -74,10 +76,10 @@ function App() {
               // and if the notification has not already been triggered
               if (noteTime <= now && !note.notified) {
                 console.log("Trigger notification for time-based note:", note.text);
-                ipcRenderer.send('notify', {
+                /*ipcRenderer.send('notify', {
                   title: 'Reminder',
                   body: note.text,
-                });
+                });*/
 
                 // Mark the note as notified
                 notes[day][index].notified = true; // Mark as notified within the current note array
@@ -100,14 +102,15 @@ function App() {
     return () => clearInterval(interval);
 
   }, [notes]); // Re-run the effect when `notes` state changes
-  
-  
-  
+
+
+
 
   return (
     <div className="App">
+      <Header calendarView={calendarView} setCalendarView={setCalendarView} />
       <div className="main">
-        <Calendar onDayClick={handleDayClick} selectedDay={selectedDay} />
+        <Calendar onDayClick={handleDayClick} selectedDay={selectedDay} currentView={calendarView} />
         {selectedDay && <DayView notes={dayNotes} setNotes={setDayNotes} selectedDay={selectedDay} />}
       </div>
     </div>
