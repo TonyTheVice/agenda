@@ -25,8 +25,10 @@ const Calendar = ({ onDayClick, selectedDay, currentView }) => {
     if (currentMonth === 11) {
       setCurrentMonth(0);
       setCurrentYear(currentYear + 1);
+      setSelectedWeekStart(new Date(currentYear + 1, 0, 1));
     } else {
       setCurrentMonth(currentMonth + 1);
+      setSelectedWeekStart(new Date(currentYear, currentMonth + 1, 1));
     }
   };
 
@@ -34,39 +36,50 @@ const Calendar = ({ onDayClick, selectedDay, currentView }) => {
     if (currentMonth === 0) {
       setCurrentMonth(11);
       setCurrentYear(currentYear - 1);
+      setSelectedWeekStart(new Date(currentYear - 1, 11, 1));
     } else {
       setCurrentMonth(currentMonth - 1);
+      setSelectedWeekStart(new Date(currentYear, currentMonth - 1, 1));
     }
   };
 
-  // Weekly view calculations
-  const getWeekDays = (startDate) => {
-    const weekDays = [];
-    const date = new Date(startDate);
-    for (let i = 0; i < 7; i++) {
-      weekDays.push(new Date(date));
-      date.setDate(date.getDate() + 1);
-    }
-    return weekDays;
-  };
+// Weekly view calculations
+const getWeekDays = (startDate) => {
+  const weekDays = [];
+  const date = new Date(startDate);
+  for (let i = 0; i < 7; i++) {
+    weekDays.push(new Date(date));
+    date.setDate(date.getDate() + 1);
+  }
+  return weekDays;
+};
 
-  const nextWeek = () => {
-    const nextWeekStart = new Date(selectedWeekStart);
-    nextWeekStart.setDate(selectedWeekStart.getDate() + 7);
-    setSelectedWeekStart(nextWeekStart);
-  };
+const nextWeek = () => {
+  const nextWeekStart = new Date(selectedWeekStart);
+  nextWeekStart.setDate(selectedWeekStart.getDate() + 7);
+  setSelectedWeekStart(nextWeekStart);
 
-  const prevWeek = () => {
-    const prevWeekStart = new Date(selectedWeekStart);
-    prevWeekStart.setDate(selectedWeekStart.getDate() - 7);
-    setSelectedWeekStart(prevWeekStart);
-  };
+  // Update the currentMonth and currentYear based on the new selectedWeekStart
+  setCurrentMonth(nextWeekStart.getMonth());
+  setCurrentYear(nextWeekStart.getFullYear());
+};
+
+const prevWeek = () => {
+  const prevWeekStart = new Date(selectedWeekStart);
+  prevWeekStart.setDate(selectedWeekStart.getDate() - 7);
+  setSelectedWeekStart(prevWeekStart);
+
+  // Update the currentMonth and currentYear based on the new selectedWeekStart
+  setCurrentMonth(prevWeekStart.getMonth());
+  setCurrentYear(prevWeekStart.getFullYear());
+};
+
 
   const currentWeekDays = getWeekDays(selectedWeekStart);
 
   return (
     <div className="calendar-root">
-      <Typography variant="h1" className="calendar-year" >
+      <Typography variant="h2" className="calendar-year" >
         {currentYear}
       </Typography>
       <div className="calendar">

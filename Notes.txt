@@ -22,7 +22,7 @@ Next steps:
     - Bug Check for notification trigger doesnt work for notes inserted currently
 - Bug Check in app mode if we try to add an empty note it gives an error an its no longer inputable(cant write)
 - Add a "next releases" page
-- When moving between weeks if we change to month go to that month and vice versa
+    - Bug Check moving between weeks if we change to month go to that month and vice versa
 
 
 

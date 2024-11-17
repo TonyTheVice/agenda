@@ -1,3 +1,7 @@
 .app-header {
-    height: 5%;
+    height: 4%;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    margin-bottom: 8px;
 }
