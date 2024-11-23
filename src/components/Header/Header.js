@@ -11,7 +11,7 @@ const Header = ({ calendarView, setCalendarView, setAllNotesView, allNotesView, 
   };
 
   const toggleAllNotes = () => {
-    setAllNotesView((prevAllNotes) => !prevAllNotes)
+    setAllNotesView(true)
     setInformationView(false);
   };
 
@@ -19,10 +19,29 @@ const Header = ({ calendarView, setCalendarView, setAllNotesView, allNotesView, 
     setInformationView(true);
   };
 
+  const toggleBackToAgenda = () => {
+    informationView && setInformationView(false);
+    allNotesView && setAllNotesView(false);
+  };
+
   return (
     <header className="app-header">
       <div className='app-header-buttons'>
-        {!informationView ?
+        {(informationView || allNotesView) ?
+          <>
+            <Button
+              sx={{
+                borderRadius: '8px',
+                backgroundColor: '#4056A1',
+                textTransform: "none"
+              }}
+              variant='contained'
+              onClick={toggleBackToAgenda}
+            >
+              Voltar para calendário
+            </Button>
+          </>
+          :
           <>
             <Button
               sx={{
@@ -44,32 +63,23 @@ const Header = ({ calendarView, setCalendarView, setAllNotesView, allNotesView, 
               variant='contained'
               onClick={toggleAllNotes}
             >
-              {allNotesView ? 'Ver dia específico' : 'Ver todas as notas'}
+              {'Ver todas as notas'}
             </Button>
           </>
-          :
-          <Button
-            sx={{
-              borderRadius: '8px',
-              backgroundColor: '#4056A1',
-              textTransform: "none"
-            }}
-            variant='contained'
-            onClick={() => setInformationView(false)}
-          >
-            Voltar para Agenda
-          </Button>
         }
       </div>
-      <IconButton
-        sx={{
-          textTransform: "none"
-        }}
-        variant='contained'
-        onClick={toggleInformationPage}
-      >
-        <InfoIcon sx={{ color: "#4056A1" }} />
-      </IconButton>
+      {!informationView &&
+        <IconButton
+          sx={{
+            textTransform: "none",
+            marginLeft: '24px',
+          }}
+          variant='contained'
+          onClick={toggleInformationPage}
+        >
+          <InfoIcon sx={{ color: "#4056A1" }} />
+        </IconButton>
+      }
       {/* Add more header elements here in the future */}
     </header>
   );

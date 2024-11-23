@@ -125,16 +125,20 @@ function App() {
 
   return (
     <div className="App">
-      <Header calendarView={calendarView} setCalendarView={setCalendarView} allNotesView={allNotesView} setAllNotesView={setAllNotesView} informationView={informationView} setInformationView={setInformationView}/>
-      {!informationView ?
-        <div className="main">
-          <Calendar notes={notes} onDayClick={handleDayClick} selectedDay={selectedDay} currentView={calendarView} />
-          {selectedDay && !allNotesView && <DayView notes={dayNotes} setNotes={setDayNotes} selectedDay={selectedDay} />}
-          {allNotesView && <AllNotes notes={notes} />}
-        </div>
-        : <div className="information">
+      <Header calendarView={calendarView} setCalendarView={setCalendarView} allNotesView={allNotesView} setAllNotesView={setAllNotesView} informationView={informationView} setInformationView={setInformationView} />
+      {informationView ?
+        <div className="information">
           <InformationPage />
         </div>
+        : allNotesView ?
+          <div className='allnotes'>
+            <AllNotes notes={notes} />
+          </div>
+          :
+          <div className="main">
+            <Calendar notes={notes} onDayClick={handleDayClick} selectedDay={selectedDay} currentView={calendarView} />
+            {selectedDay && <DayView notes={dayNotes} setNotes={setDayNotes} selectedDay={selectedDay} />}
+          </div>
       }
     </div>
   );

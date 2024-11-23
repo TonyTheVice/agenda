@@ -1,14 +1,19 @@
 .app-header {
+    position: sticky;  /* Make the header sticky */
+    top: 0;  /* Stick the header to the top of the page */
     height: 6%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 8px;
     margin-bottom: 8px;
-}
+    z-index: 1000; /* Ensures the header stays on top of other content */
+    background-color: white; /* Make sure the background is solid */
+  }
 
 .app-header-buttons {
     display: flex;
     align-items: center;
-    gap: 24px
+    justify-content: space-between;
+    width: 100%;
 }

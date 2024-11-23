@@ -13,6 +13,12 @@
   padding: 0 24px;
 }
 
+.allnotes {
+  display: flex;
+  align-items: center;
+  height: 85%;
+}
+
 h1 {
   text-align: center;
 }
