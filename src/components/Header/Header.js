@@ -3,7 +3,7 @@ import { Button, IconButton } from '@mui/material'
 import InfoIcon from '@mui/icons-material/Info';
 import './Header.css'; // Add styling for the header
 
-const Header = ({ calendarView, setCalendarView, setAllNotesView, allNotesView, setInformationView }) => {
+const Header = ({ calendarView, setCalendarView, setAllNotesView, allNotesView, informationView, setInformationView }) => {
 
   const toggleView = () => {
     setCalendarView((prevView) => (prevView === 'monthly' ? 'weekly' : 'monthly'));
@@ -22,28 +22,44 @@ const Header = ({ calendarView, setCalendarView, setAllNotesView, allNotesView, 
   return (
     <header className="app-header">
       <div className='app-header-buttons'>
-        <Button
-          sx={{
-            borderRadius: '8px',
-            backgroundColor: '#4056A1',
-            textTransform: "none"
-          }}
-          variant='contained'
-          onClick={toggleView}
-        >
-          Alterar para {calendarView === 'monthly' ? 'visão semanal' : 'visão mensal'}
-        </Button>
-        <Button
-          sx={{
-            borderRadius: '8px',
-            backgroundColor: '#4056A1',
-            textTransform: "none"
-          }}
-          variant='contained'
-          onClick={toggleAllNotes}
-        >
-          {allNotesView ? 'Ver dia específico' : 'Ver todas as notas'}
-        </Button>
+        {!informationView ?
+          <>
+            <Button
+              sx={{
+                borderRadius: '8px',
+                backgroundColor: '#4056A1',
+                textTransform: "none"
+              }}
+              variant='contained'
+              onClick={toggleView}
+            >
+              Alterar para {calendarView === 'monthly' ? 'visão semanal' : 'visão mensal'}
+            </Button>
+            <Button
+              sx={{
+                borderRadius: '8px',
+                backgroundColor: '#4056A1',
+                textTransform: "none"
+              }}
+              variant='contained'
+              onClick={toggleAllNotes}
+            >
+              {allNotesView ? 'Ver dia específico' : 'Ver todas as notas'}
+            </Button>
+          </>
+          :
+          <Button
+            sx={{
+              borderRadius: '8px',
+              backgroundColor: '#4056A1',
+              textTransform: "none"
+            }}
+            variant='contained'
+            onClick={() => setInformationView(false)}
+          >
+            Voltar para Agenda
+          </Button>
+        }
       </div>
       <IconButton
         sx={{

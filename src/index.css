@@ -4,6 +4,38 @@ html, body, #root {
   padding: 0; /* Removes default padding */
 }
 
+
+/* Style the scrollbar track */
+.html, body::-webkit-scrollbar {
+  width: 8px; /* Set scrollbar width */
+}
+
+/* Style the scrollbar thumb (the draggable part) */
+.html, body::-webkit-scrollbar-thumb {
+  background-color: #888; /* Thumb color */
+  border-radius: 10px; /* Round the corners */
+  border: 2px solid transparent; /* Add a border to create space */
+  background-clip: content-box; /* Add spacing between thumb and track */
+}
+
+/* Change thumb color on hover */
+.html, body::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Darker color on hover */
+}
+
+/* Style the scrollbar track (background) */
+.html, body::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light track color */
+  border-radius: 10px; /* Round corners */
+}
+
+/* Optional: Add a "shadow" to the scrollbar track */
+.html, body::-webkit-scrollbar-track-piece {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+
 body {
   background: #e3e3df;
   margin: 0;

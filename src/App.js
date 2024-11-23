@@ -125,7 +125,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header calendarView={calendarView} setCalendarView={setCalendarView} allNotesView={allNotesView} setAllNotesView={setAllNotesView} setInformationView={setInformationView}/>
+      <Header calendarView={calendarView} setCalendarView={setCalendarView} allNotesView={allNotesView} setAllNotesView={setAllNotesView} informationView={informationView} setInformationView={setInformationView}/>
       {!informationView ?
         <div className="main">
           <Calendar notes={notes} onDayClick={handleDayClick} selectedDay={selectedDay} currentView={calendarView} />
