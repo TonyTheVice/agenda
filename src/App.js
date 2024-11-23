@@ -7,8 +7,11 @@ import { get, ref, set } from 'firebase/database';
 import { db } from './firebase'; // Import Firebase Realtime Database functions
 
 function App() {
-  const [selectedDay, setSelectedDay] = useState(null);
-  const [notes, setNotes] = useState([]); // State to hold the notes
+  const [selectedDay, setSelectedDay] = useState(() => {
+    const today = new Date();
+    return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+  });
+    const [notes, setNotes] = useState([]); // State to hold the notes
   const [dayNotes, setDayNotes] = useState([]); // State to hold the day notes
   const [calendarView, setCalendarView] = useState('monthly'); // Manage calendar view state
   //const { ipcRenderer } = window.require('electron'); // Import ipcRenderer for communication with the main process
@@ -110,7 +113,7 @@ function App() {
     <div className="App">
       <Header calendarView={calendarView} setCalendarView={setCalendarView} />
       <div className="main">
-        <Calendar onDayClick={handleDayClick} selectedDay={selectedDay} currentView={calendarView} />
+        <Calendar notes={notes} onDayClick={handleDayClick} selectedDay={selectedDay} currentView={calendarView} />
         {selectedDay && <DayView notes={dayNotes} setNotes={setDayNotes} selectedDay={selectedDay} />}
       </div>
     </div>

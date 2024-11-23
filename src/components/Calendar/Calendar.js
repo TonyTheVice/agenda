@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import East from '@mui/icons-material/East';
 import West from '@mui/icons-material/West';
 import "./Calendar.css";
 
-const Calendar = ({ onDayClick, selectedDay, currentView }) => {
+const Calendar = ({ onDayClick, selectedDay, currentView, notes }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [selectedWeekStart, setSelectedWeekStart] = useState(new Date()); // Start of the current week
@@ -21,7 +21,6 @@ const Calendar = ({ onDayClick, selectedDay, currentView }) => {
 
   // Generate days array for the monthly view
   const daysArray = Array.from({ length: daysInMonth }, (_, index) => index + 1);
-
 
   // Navigate months
   const nextMonth = () => {
@@ -77,113 +76,115 @@ const Calendar = ({ onDayClick, selectedDay, currentView }) => {
     setCurrentYear(prevWeekStart.getFullYear());
   };
 
-
   const currentWeekDays = getWeekDays(selectedWeekStart);
+
+  // Check if there are notes for a specific day
+  const hasNotes = (date) => {
+    const dateString = date.toISOString().split("T")[0];
+    return notes[dateString] && notes[dateString].length > 0;
+  };
 
   return (
     <div className="calendar-root">
-      <Typography variant="h2" className="calendar-year" >
-        {currentYear}
-      </Typography>
-      <div className="calendar">
-        {currentView === "monthly" ? (
-          <>
-            <div className="calendar-header">
-              <IconButton
-                sx={{ color: 'black' }}
-                onClick={prevMonth}
-              >
-                <West sx={{ fontSize: '30px' }} />
-              </IconButton>
-              <div className="calendar-date-title">
-                <h2 className="calendar-date-label">
-                  {new Date(currentYear, currentMonth)
-                    .toLocaleString("default", { month: "long" })
-                    .replace(/^\w/, (c) => c.toUpperCase())}
-                </h2>
+      <div className="calendar-section">
+        <Typography variant="h2" className="calendar-year">
+          {currentYear}
+        </Typography>
+        <div className="calendar">
+          {currentView === "monthly" ? (
+            <>
+              <div className="calendar-header">
+                <IconButton sx={{ color: 'black' }} onClick={prevMonth}>
+                  <West sx={{ fontSize: '30px' }} />
+                </IconButton>
+                <div className="calendar-date-title">
+                  <h2 className="calendar-date-label">
+                    {new Date(currentYear, currentMonth)
+                      .toLocaleString("default", { month: "long" })
+                      .replace(/^\w/, (c) => c.toUpperCase())}
+                  </h2>
+                </div>
+                <IconButton sx={{ color: 'black' }} onClick={nextMonth}>
+                  <East sx={{ fontSize: '30px' }} />
+                </IconButton>
               </div>
-              <IconButton
-                sx={{ color: 'black' }}
-                onClick={nextMonth}
-              >
-                <East sx={{ fontSize: '30px' }} />
-              </IconButton>
-            </div>
 
-            <div className="calendar-grid">
-              {dayNames.map((dayName) => (
-                <div key={dayName} className="calendar-day-header">
-                  {dayName}
-                </div>
-              ))}
-              {Array.from({ length: firstDayOfMonth }).map((_, index) => (
-                <div key={index} className="calendar-day empty"></div>
-              ))}
-              {daysArray.map((day) => (
-                <div
-                  key={day}
-                  className={`calendar-day ${(selectedDay === `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)
-                    ? "selected"
-                    : ""
-                    } ${day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear() ? "today" : ""}`}
+              <div className="calendar-grid">
+                {dayNames.map((dayName) => (
+                  <div key={dayName} className="calendar-day-header">
+                    {dayName}
+                  </div>
+                ))}
+                {Array.from({ length: firstDayOfMonth }).map((_, index) => (
+                  <div key={index} className="calendar-day empty"></div>
+                ))}
+                {daysArray.map((day) => (
+                  <div
+                    key={day}
+                    className={`calendar-day ${(selectedDay === `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)
+                      ? "selected" : hasNotes(new Date(currentYear, currentMonth, day)) ? "has-notes"
+                        : ""
+                      } ${day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear() ? "today" : ""}`}
+                    onClick={() => onDayClick(`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)}
+                  >
+                    {day}
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            // Weekly view
+            <>
+              <div className="calendar-header">
+                <IconButton sx={{ color: 'black' }} onClick={prevWeek}>
+                  <West sx={{ fontSize: '30px' }} />
+                </IconButton>
+                <h2>
+                  Semana de{" "}
+                  {selectedWeekStart
+                    .toLocaleDateString("default", {
+                      month: "long",
+                      day: "numeric",
+                    })
+                    .replace(/(\sde\s)([a-z])/g, (_, preposition, monthChar) => {
+                      return `${preposition}${monthChar.toUpperCase()}`;
+                    })}
+                </h2>
+                <IconButton sx={{ color: 'black' }} onClick={nextWeek}>
+                  <East sx={{ fontSize: '30px' }} />
+                </IconButton>
+              </div>
 
-                  onClick={() => onDayClick(`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)}
-                >
-                  {day}
-                </div>
-              ))}
-            </div>
-          </>
-        ) : (
-          // Weekly view
-          <>
-            <div className="calendar-header">
-              <IconButton
-                sx={{ color: 'black' }}
-                onClick={prevWeek}
-              >
-                <West sx={{ fontSize: '30px' }} />
-              </IconButton>
-              <h2>
-                Semana de{" "}
-                {selectedWeekStart
-                  .toLocaleDateString("default", {
-                    month: "long",
-                    day: "numeric",
-                  })
-                  .replace(/(\sde\s)([a-z])/g, (_, preposition, monthChar) => {
-                    return `${preposition}${monthChar.toUpperCase()}`;
-                  })}
-              </h2>
-              <IconButton
-                sx={{ color: 'black' }}
-                onClick={nextWeek}
-              >
-                <East sx={{ fontSize: '30px' }} />
-              </IconButton>
-            </div>
-
-            <div className="calendar-grid weekly-view">
-              {dayNames.map((dayName) => (
-                <div key={dayName} className="calendar-day-header">
-                  {dayName}
-                </div>
-              ))}
-              {currentWeekDays.map((date) => (
-                <div
-                  key={date.toDateString()}
-                  className={`calendar-day ${selectedDay === `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
-                    ? "selected"
-                    : ""
-                    } ${date.toDateString() === today.toDateString() ? "today" : ""}`}
-
-                  onClick={() => onDayClick(date.toISOString().split("T")[0])}             >
-                  <div className="calendar-day-number">{date.getDate()}</div>
-                </div>
-              ))}
-            </div>
-          </>
-        )}
+              <div className="calendar-grid weekly-view">
+                {dayNames.map((dayName) => (
+                  <div key={dayName} className="calendar-day-header">
+                    {dayName}
+                  </div>
+                ))}
+                {currentWeekDays.map((date) => (
+                  <div
+                    key={date.toDateString()}
+                    className={`calendar-day ${hasNotes(date) ? "has-notes" : selectedDay === `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+                      ? "selected"
+                      : ""
+                      } ${date.toDateString() === today.toDateString() ? "today" : ""}`}
+                    onClick={() => onDayClick(date.toISOString().split("T")[0])}
+                  >
+                    <div className="calendar-day-number">{date.getDate()}</div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+      {/* Color Legend Caption */}
+      <div className="calendar-legend">
+        <Typography variant="body2">
+          <span style={{ backgroundColor: "lightgreen", padding: "0 5px" }}>Hoje</span> - Data de hoje
+          <span style={{ backgroundColor: "lightblue", padding: "0 5px", marginLeft: "10px" }}>Selecionado</span> - Data selecionada
+          <span style={{ backgroundColor: "orange", padding: "0 5px", marginLeft: "10px" }}>Notas</span> - Dias com notas
+        </Typography>
       </div>
     </div>
   );

@@ -10,10 +10,10 @@ npm run electron-builder --win --x64
 
 16/11 - 5 horas
 17/11 - 3 horas
-
+23/11 - 4 horas
 
 Next steps:
-- Make the squares show which days have notes(for month view only a color or something and for week view have the actual note with a max of three lines, the first 2 are notes and have a max width of the square and elipsis and the third one is just ellipsis. The notes are fetch from a prop coming from App.js)
+    - Make the squares show which days have notes(for month view only a color or something and for week view have the actual note with a max of three lines, the first 2 are notes and have a max width of the square and elipsis and the third one is just ellipsis. The notes are fetch from a prop coming from App.js)
 - Change everything to material ui - icons, typography ...
 - Clean code
     - Make month view and weekly view a single button and separate from Calendar component
@@ -21,11 +21,11 @@ Next steps:
 - Make a "All notes" view
     - Make it possible to send a notification(with sound) when the time comes for a note
     - Bug Check for notification trigger doesnt work for notes inserted currently
-- Bug Check in app mode if we try to add an empty note it gives an error an its no longer inputable(cant write)
+- Bug Check in app mode if we try to add an empty note it gives an error an its no longer inputable(cant write) - Make button disabled while no text
 - Add security to database
 - Add a "next releases" page(new features, link to github(make it public), link to database?)
     - Bug Check moving between weeks if we change to month go to that month and vice versa
-
+- Check window screen scales and what we can do about it
 
 
 View Calendar:
