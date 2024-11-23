@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { set, get, ref } from "firebase/database";
 import "./DayView.css";
+import { Typography } from "@mui/material";
 import NoteInput from "../NoteInput/NoteInput";
 import NoteList from "../NoteList/NoteList";
 import { db } from "../../firebase"; // Import Firebase Realtime Database functions
@@ -30,13 +31,13 @@ const DayView = ({ selectedDay, notes, setNotes }) => {
       let updatedNotes = [...notes];
       if (editNoteIndex !== null) {
         // If editing, update the specific note
-        updatedNotes[editNoteIndex] = { 
+        updatedNotes[editNoteIndex] = {
           ...note,
-          notified: note.notified !== undefined ? note.notified : false, 
+          notified: note.notified !== undefined ? note.notified : false,
         };
       } else {
         // Otherwise, add the new note
-        updatedNotes.push({ 
+        updatedNotes.push({
           ...note,
           notified: note.notified !== undefined ? note.notified : false,
         });
@@ -70,11 +71,26 @@ const DayView = ({ selectedDay, notes, setNotes }) => {
     setEditNoteIndex(index); // Set the note to edit
   };
 
+  // Cancel editing a note
+  const handleCancelEdit = () => {
+    setEditNoteIndex(null); // Reset edit index to cancel editing
+  };
+
   return (
     <div className="day-view">
-      <h2>Notes for Day {selectedDay}</h2>
+      <Typography
+        className="day-title"
+        variant="h5"
+      >
+        {new Date(selectedDay)
+          .toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" })
+          .replace(/(\sde\s)([a-z])/g, (_, preposition, monthChar) => {
+            return `${preposition}${monthChar.toUpperCase()}`;
+          })}
+      </Typography>
       <NoteInput
         onSaveNote={handleSaveNote}
+        onCancelEdit={handleCancelEdit} // Passando a função para o componente
         editingNote={editNoteIndex !== null ? notes[editNoteIndex] : null}
       />
       <NoteList

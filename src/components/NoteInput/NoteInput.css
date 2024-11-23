@@ -1,5 +1,11 @@
 .note-input {
     margin-bottom: 20px;
+    height: 35%;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 16px
   }
   
   .note-input textarea {
@@ -9,19 +15,22 @@
     border-radius: 5px;
     border: 1px solid #ccc;
   }
+
+  .note-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   
   .note-input button {
     margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #4caf50;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 24px;
     cursor: pointer;
   }
   
   .note-input button:hover {
-    background-color: #45a049;
   }
 
   .label-allday {

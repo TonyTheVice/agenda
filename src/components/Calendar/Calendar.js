@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Typography } from "@mui/material";
+import IconButton from '@mui/material/IconButton';
+import East from '@mui/icons-material/East';
+import West from '@mui/icons-material/West';
 import "./Calendar.css";
 
 const Calendar = ({ onDayClick, selectedDay, currentView }) => {
@@ -43,36 +46,36 @@ const Calendar = ({ onDayClick, selectedDay, currentView }) => {
     }
   };
 
-// Weekly view calculations
-const getWeekDays = (startDate) => {
-  const weekDays = [];
-  const date = new Date(startDate);
-  for (let i = 0; i < 7; i++) {
-    weekDays.push(new Date(date));
-    date.setDate(date.getDate() + 1);
-  }
-  return weekDays;
-};
+  // Weekly view calculations
+  const getWeekDays = (startDate) => {
+    const weekDays = [];
+    const date = new Date(startDate);
+    for (let i = 0; i < 7; i++) {
+      weekDays.push(new Date(date));
+      date.setDate(date.getDate() + 1);
+    }
+    return weekDays;
+  };
 
-const nextWeek = () => {
-  const nextWeekStart = new Date(selectedWeekStart);
-  nextWeekStart.setDate(selectedWeekStart.getDate() + 7);
-  setSelectedWeekStart(nextWeekStart);
+  const nextWeek = () => {
+    const nextWeekStart = new Date(selectedWeekStart);
+    nextWeekStart.setDate(selectedWeekStart.getDate() + 7);
+    setSelectedWeekStart(nextWeekStart);
 
-  // Update the currentMonth and currentYear based on the new selectedWeekStart
-  setCurrentMonth(nextWeekStart.getMonth());
-  setCurrentYear(nextWeekStart.getFullYear());
-};
+    // Update the currentMonth and currentYear based on the new selectedWeekStart
+    setCurrentMonth(nextWeekStart.getMonth());
+    setCurrentYear(nextWeekStart.getFullYear());
+  };
 
-const prevWeek = () => {
-  const prevWeekStart = new Date(selectedWeekStart);
-  prevWeekStart.setDate(selectedWeekStart.getDate() - 7);
-  setSelectedWeekStart(prevWeekStart);
+  const prevWeek = () => {
+    const prevWeekStart = new Date(selectedWeekStart);
+    prevWeekStart.setDate(selectedWeekStart.getDate() - 7);
+    setSelectedWeekStart(prevWeekStart);
 
-  // Update the currentMonth and currentYear based on the new selectedWeekStart
-  setCurrentMonth(prevWeekStart.getMonth());
-  setCurrentYear(prevWeekStart.getFullYear());
-};
+    // Update the currentMonth and currentYear based on the new selectedWeekStart
+    setCurrentMonth(prevWeekStart.getMonth());
+    setCurrentYear(prevWeekStart.getFullYear());
+  };
 
 
   const currentWeekDays = getWeekDays(selectedWeekStart);
@@ -86,7 +89,12 @@ const prevWeek = () => {
         {currentView === "monthly" ? (
           <>
             <div className="calendar-header">
-              <button onClick={prevMonth}>&lt; Prev Month</button>
+              <IconButton
+                sx={{ color: 'black' }}
+                onClick={prevMonth}
+              >
+                <West sx={{ fontSize: '30px' }} />
+              </IconButton>
               <div className="calendar-date-title">
                 <h2 className="calendar-date-label">
                   {new Date(currentYear, currentMonth)
@@ -94,7 +102,12 @@ const prevWeek = () => {
                     .replace(/^\w/, (c) => c.toUpperCase())}
                 </h2>
               </div>
-              <button onClick={nextMonth}>Next Month &gt;</button>
+              <IconButton
+                sx={{ color: 'black' }}
+                onClick={nextMonth}
+              >
+                <East sx={{ fontSize: '30px' }} />
+              </IconButton>
             </div>
 
             <div className="calendar-grid">
@@ -125,7 +138,12 @@ const prevWeek = () => {
           // Weekly view
           <>
             <div className="calendar-header">
-              <button onClick={prevWeek}>&lt; Prev Week</button>
+              <IconButton
+                sx={{ color: 'black' }}
+                onClick={prevWeek}
+              >
+                <West sx={{ fontSize: '30px' }} />
+              </IconButton>
               <h2>
                 Semana de{" "}
                 {selectedWeekStart
@@ -137,7 +155,12 @@ const prevWeek = () => {
                     return `${preposition}${monthChar.toUpperCase()}`;
                   })}
               </h2>
-              <button onClick={nextWeek}>Next Week &gt;</button>
+              <IconButton
+                sx={{ color: 'black' }}
+                onClick={nextWeek}
+              >
+                <East sx={{ fontSize: '30px' }} />
+              </IconButton>
             </div>
 
             <div className="calendar-grid weekly-view">

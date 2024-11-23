@@ -1,14 +1,54 @@
 .note-list {
-    margin-top: 20px;
-  }
-  
-  .note {
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #f4f4f4;
-    border-radius: 5px;
-  }
-  
-  .no-notes-warning {
-    color: white
-  }
+  height: 50%;
+  padding: 10px;
+}
+
+.note {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.note:last-child {
+  border-bottom: none;
+}
+
+.no-notes-warning {
+  color: #888;
+  font-style: italic;
+}
+
+/* Custom scroll container */
+.scroll-container {
+  max-height: 400px; /* Set height for scrolling */
+  overflow-y: auto;
+}
+
+/* Style the scrollbar track */
+.scroll-container::-webkit-scrollbar {
+  width: 8px; /* Set scrollbar width */
+}
+
+/* Style the scrollbar thumb (the draggable part) */
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: #888; /* Thumb color */
+  border-radius: 10px; /* Round the corners */
+  border: 2px solid transparent; /* Add a border to create space */
+  background-clip: content-box; /* Add spacing between thumb and track */
+}
+
+/* Change thumb color on hover */
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Darker color on hover */
+}
+
+/* Style the scrollbar track (background) */
+.scroll-container::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light track color */
+  border-radius: 10px; /* Round corners */
+}
+
+/* Optional: Add a "shadow" to the scrollbar track */
+.scroll-container::-webkit-scrollbar-track-piece {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
