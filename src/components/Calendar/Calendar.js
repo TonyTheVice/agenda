@@ -93,18 +93,18 @@ const Calendar = ({ onDayClick, selectedDay, currentView, notes }) => {
         <div className="calendar">
           {currentView === "monthly" ? (
             <>
-              <div className="calendar-header">
-                <IconButton sx={{ color: 'black' }} onClick={prevMonth}>
+              <div className="calendar-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                <IconButton sx={{ color: 'white', background: "#4056A1" }} onClick={prevMonth}>
                   <West sx={{ fontSize: '30px' }} />
                 </IconButton>
-                <div className="calendar-date-title">
-                  <h2 className="calendar-date-label">
+                <div className="calendar-date-title" style={{ textAlign: 'center', flex: '1' }}>
+                  <h2 className="calendar-date-label" style={{ margin: 0 }}>
                     {new Date(currentYear, currentMonth)
                       .toLocaleString("default", { month: "long" })
                       .replace(/^\w/, (c) => c.toUpperCase())}
                   </h2>
                 </div>
-                <IconButton sx={{ color: 'black' }} onClick={nextMonth}>
+                <IconButton sx={{ color: 'white', background: "#4056A1" }} onClick={nextMonth}>
                   <East sx={{ fontSize: '30px' }} />
                 </IconButton>
               </div>
@@ -136,10 +136,11 @@ const Calendar = ({ onDayClick, selectedDay, currentView, notes }) => {
             // Weekly view
             <>
               <div className="calendar-header">
-                <IconButton sx={{ color: 'black' }} onClick={prevWeek}>
+                <IconButton sx={{ color: 'white', background: "#4056A1" }} onClick={prevWeek}>
                   <West sx={{ fontSize: '30px' }} />
                 </IconButton>
-                <h2>
+                <div className="calendar-date-title" style={{ textAlign: 'center', flex: '1' }}>
+                  <h2 className="calendar-date-label" style={{ margin: 0 }}>
                   Semana de{" "}
                   {selectedWeekStart
                     .toLocaleDateString("default", {
@@ -149,8 +150,9 @@ const Calendar = ({ onDayClick, selectedDay, currentView, notes }) => {
                     .replace(/(\sde\s)([a-z])/g, (_, preposition, monthChar) => {
                       return `${preposition}${monthChar.toUpperCase()}`;
                     })}
-                </h2>
-                <IconButton sx={{ color: 'black' }} onClick={nextWeek}>
+                  </h2>
+                </div>
+                <IconButton sx={{ color: 'white', background: "#4056A1" }} onClick={nextWeek}>
                   <East sx={{ fontSize: '30px' }} />
                 </IconButton>
               </div>
@@ -180,10 +182,10 @@ const Calendar = ({ onDayClick, selectedDay, currentView, notes }) => {
       </div>
       {/* Color Legend Caption */}
       <div className="calendar-legend">
-        <Typography variant="body2">
-          <span style={{ backgroundColor: "lightgreen", padding: "0 5px" }}>Hoje</span> - Data de hoje
-          <span style={{ backgroundColor: "lightblue", padding: "0 5px", marginLeft: "10px" }}>Selecionado</span> - Data selecionada
-          <span style={{ backgroundColor: "orange", padding: "0 5px", marginLeft: "10px" }}>Notas</span> - Dias com notas
+        <Typography variant="caption" sx={{ color: "white" }}>
+          <span style={{ backgroundColor: "#41c95f", padding: "5px" }}>Data de hoje</span>
+          <span style={{ backgroundColor: "#8540c8", padding: "5px", marginLeft: "10px" }}>Data selecionada</span>
+          <span style={{ backgroundColor: "#d6014f", padding: "5px", marginLeft: "10px" }}>Dias com notas</span>
         </Typography>
       </div>
     </div>

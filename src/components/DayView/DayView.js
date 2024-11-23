@@ -16,15 +16,15 @@ const DayView = ({ selectedDay, notes, setNotes }) => {
       const secretKey = SECRET_KEY;
       const secretRef = ref(db, 'secret');
       const snapshot = await get(secretRef);
-    
+
       if (snapshot.val() !== secretKey) {
         throw new Error('Acesso negado!');
       }
 
       const notesRef = ref(db, "notes/" + selectedDay); // Reference to the notes for a specific day
-      const notesSnapshot  = await get(notesRef);
-      if (notesSnapshot .exists()) {
-        setNotes(notesSnapshot .val());
+      const notesSnapshot = await get(notesRef);
+      if (notesSnapshot.exists()) {
+        setNotes(notesSnapshot.val());
       } else {
         setNotes([]);
       }
@@ -89,10 +89,10 @@ const DayView = ({ selectedDay, notes, setNotes }) => {
     <div className="day-view">
       <Typography
         className="day-title"
-        variant="h2"
+        variant="body1"
       >
         {new Date(selectedDay)
-          .toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" })
+          .toLocaleDateString("pt-PT", { day: "numeric", month: "long", year: "numeric" })
           .replace(/(\sde\s)([a-z])/g, (_, preposition, monthChar) => {
             return `${preposition}${monthChar.toUpperCase()}`;
           })}
@@ -106,8 +106,10 @@ const DayView = ({ selectedDay, notes, setNotes }) => {
         notes={notes}
         onDeleteNote={handleDeleteNote}
         onEditNote={handleEditNote}
+        editNoteIndex={editNoteIndex}
       />
     </div>
+
   );
 };
 

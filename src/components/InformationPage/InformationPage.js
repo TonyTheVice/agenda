@@ -8,9 +8,16 @@ import irisImg from './../../assets/iris.jpg';
 
 // A componente InformationPage descreve a aplicação, seu desenvolvimento, e inclui o log de versões, detalhes sobre as ferramentas utilizadas e regras de segurança.
 
+/* 
+pagebackground: #000000
+containerbackground: #1e1e1e
+text: white
+primary(for buttons and other stuff):  #4056A1
+*/
+
 const InformationPage = () => {
   return (
-    <Box sx={{ maxWidth: 1200, margin: 'auto', padding: 3 }}>
+    <Box sx={{  }}>
       {/* Título principal */}
       <Typography variant="h3" gutterBottom>
         Aplicação de Agenda Pessoal
@@ -45,6 +52,7 @@ const InformationPage = () => {
 
 
       {/* Ferramentas utilizadas */}
+      <Paper sx={{ padding: 2, marginBottom: 3 }}>
       <Typography variant="h5" gutterBottom>
         Ferramentas Utilizadas
       </Typography>
@@ -63,6 +71,7 @@ const InformationPage = () => {
         <li><strong>Electron:</strong> O Electron é uma estrutura que permite criar aplicações de desktop utilizando tecnologias web como HTML, CSS e JavaScript. Com o Electron, é possível empacotar a aplicação web, criando um instalador que facilita a distribuição e execução da aplicação como um software independente, semelhante a uma aplicação nativa de desktop. Esta abordagem proporciona uma experiência de utilização consistente, seja em sistemas Windows, macOS ou Linux, sem a necessidade de reescrever o código para cada plataforma.</li>
 
       </ul>
+      </Paper>
 
       {/* Firebase - Detalhes de segurança */}
       <Paper sx={{ padding: 2, marginBottom: 3 }}>
@@ -110,7 +119,8 @@ const InformationPage = () => {
       </Paper>
 
 
-      {/* Links importantes */}
+      {/* Links */}
+      <Paper sx={{ padding: 2, marginBottom: 3 }}>
       <Typography variant="h5" gutterBottom>
         Links Importantes
       </Typography>
@@ -121,14 +131,11 @@ const InformationPage = () => {
         <li><a href="https://github.com/TonyTheVice/agenda" target="_blank" rel="noopener noreferrer">GitHub - Repositório</a></li>
         <li><a href="https://console.firebase.google.com/u/0/project/agenda-8640a/database/agenda-8640a-default-rtdb/data" target="_blank" rel="noopener noreferrer">Firebase - Banco de Dados</a></li>
       </ul>
+      </Paper>
 
 
 
 
-      {/* Recomendações para futuras funcionalidades */}
-      <Typography variant="h5" gutterBottom>
-        Recomendações para Futuras Funcionalidades
-      </Typography>
       <Typography variant="body1" paragraph>
         Se tiver sugestões ou ideias para novas funcionalidades, fique à vontade para entrar em contacto.
       </Typography>
@@ -140,10 +147,12 @@ const InformationPage = () => {
         </div>
 
       {/* Créditos */}
-      <Divider sx={{ marginBottom: 2 }} />
-      <Typography variant="body2" align="center" color="textSecondary">
+      <Divider sx={{ marginBottom: 2, border: "2px solid #4056A1" }} />
+      <Typography variant="body2" align="center" color="white" sx={{marginBottom: "2px"}}>
         Desenvolvido por António Vitorino
       </Typography>
+      <Divider sx={{ marginBottom: 2 }} />
+
     </Box>
   );
 };

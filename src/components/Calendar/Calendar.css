@@ -1,11 +1,20 @@
 .calendar-root{
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
-  width: 60%;
-  height: 70%;
-  gap: 24px;
+  width: calc(60% - 48px);
+  height: calc(100% - 44px);
+  padding: 8px 24px;
+  border: 2px solid #4056A1;
+  border-radius: 10px;
+}
+
+.calendar-year{
+  color: #4056A1;
+  font-weight: bold !important;
+  display: flex;
+  justify-content: center;
 }
 
 .calendar-section {
@@ -39,33 +48,35 @@
 }
 
 .calendar-date-label {
+  color: #4056A1;
   margin: 0
 }
 
 .calendar-day {
   padding: 18px;
-  border: 1px solid #5d001e;
+  border: 1px solid white;
+  color: white;
   text-align: center;
   cursor: pointer;
 }
 
 .calendar-day-header {
-  background-color: #5d001e;
+  background-color: #4056A1;
   color: white;
   padding: 8px;
   border-radius: 24px;
 }
 
 .calendar-day.today {
-  background-color: lightgreen;
+  background-color: #41c95f !important;
 }
 
 .calendar-day.selected {
-  background-color: lightblue;
+  background-color: #8540c8 !important;
 }
 
 .calendar-day.has-notes {
-  background-color: orange;
+  background-color: #d6014f;
 }
 
 

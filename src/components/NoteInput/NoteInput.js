@@ -42,31 +42,35 @@ const NoteInput = ({ onSaveNote, editingNote, onCancelEdit }) => {
 
   return (
     <div className="note-input">
-            <Typography
+      <Typography
+        sx={{ color: "white" }}
         variant="subtitle1"
       >
-        {editingNote ? "Editar nota existente" : "Criar uma nova nota"} 
+        {editingNote ? "Editar nota existente" : "Criar uma nova nota"}
       </Typography>
       <TextField
         variant="outlined"
         fullWidth
         multiline
-        rows={4}
+        rows={3}
         value={text}
+        sx={{border: "2px solid white", borderRadius: "4px", fontStyle: "italic"}}
         onChange={(e) => setText(e.target.value)}
         placeholder="Escreva algo sobre este dia..."
         margin="normal"
       />
       <div className="note-actions">
-        <div>
+        <div style={{display: 'flex', alignItems:'center'}}>
           <FormControlLabel
+            sx={{ color: "white" }}
             control={
               <Checkbox
+                sx={{ color: "white", marginRight: 0 }}
                 checked={isAllDay}
                 onChange={(e) => setIsAllDay(e.target.checked)}
               />
             }
-            label={isAllDay ? "Todo o dia" : "Definir horário"}
+            label={isAllDay && "Todo o dia"}
           />
           {!isAllDay && (
             <TextField
@@ -74,29 +78,50 @@ const NoteInput = ({ onSaveNote, editingNote, onCancelEdit }) => {
               value={time}
               onChange={(e) => setTime(e.target.value)}
               InputLabelProps={{ shrink: true }}
+              InputProps={{
+                style: {
+                  color: "white", // Change the input text color to white
+                },
+              }}
+              sx={{
+                '& .MuiInputBase-input': {
+                  color: 'white', // Ensures text inside the input is white
+                },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'white', // Optional: make the border white
+                  },
+                  '&:hover fieldset': {
+                    borderColor: 'white',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: 'white',
+                  },
+                },
+              }}
               size="small"
             />
           )}
         </div>
         <div className="action-buttons">
-        {editingNote && (
+          {editingNote && (
+            <Button
+              className="note-input-button"
+              variant="outlined"
+              onClick={handleCancel}
+              sx={{ textTransform: "none", marginLeft: 1, backgroundColor: "#5d001e" }}
+            >
+              Cancelar
+            </Button>
+          )}
           <Button
             className="note-input-button"
-            variant="outlined"
-            onClick={handleCancel}
-            sx={{ textTransform: "none", marginLeft: 1, backgroundColor: "#5d001e" }}
+            variant="contained"
+            onClick={handleSave}
+            sx={{ textTransform: "none", backgroundColor: "#4056A1" }}
           >
-            Cancelar
+            {editingNote ? "Guardar alterações" : "Adicionar nota"}
           </Button>
-        )}
-        <Button
-          className="note-input-button"
-          variant="contained"
-          onClick={handleSave}
-          sx={{ textTransform: "none", backgroundColor: "#4056A1" }}
-        >
-          {editingNote ? "Guardar alterações" : "Adicionar nota"}
-        </Button>
         </div>
 
 

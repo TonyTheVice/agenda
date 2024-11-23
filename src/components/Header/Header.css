@@ -6,10 +6,11 @@
     align-items: center;
     justify-content: space-between;
     padding: 8px;
-    margin-bottom: 8px;
     z-index: 1000; /* Ensures the header stays on top of other content */
-    background-color: white; /* Make sure the background is solid */
-  }
+background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.8)); /* Gradient overlay */
+background-color: black; /* Base black */
+background-image: url('https://www.transparenttextures.com/patterns/black-tie.png'); /* Subtle texture */
+box-shadow: inset 0px 0px 50px rgba(255, 255, 255, 0.2); /* Soft reflection */  }
 
 .app-header-buttons {
     display: flex;

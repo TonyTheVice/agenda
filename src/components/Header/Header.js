@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, IconButton } from '@mui/material'
 import InfoIcon from '@mui/icons-material/Info';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import './Header.css'; // Add styling for the header
 
 const Header = ({ calendarView, setCalendarView, setAllNotesView, allNotesView, informationView, setInformationView }) => {
@@ -73,11 +74,12 @@ const Header = ({ calendarView, setCalendarView, setAllNotesView, allNotesView, 
           sx={{
             textTransform: "none",
             marginLeft: '24px',
+            background: "#4056A1"
           }}
           variant='contained'
           onClick={toggleInformationPage}
         >
-          <InfoIcon sx={{ color: "#4056A1" }} />
+          <QuestionMarkIcon sx={{ color: "white" }} />
         </IconButton>
       }
       {/* Add more header elements here in the future */}
