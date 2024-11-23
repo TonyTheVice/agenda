@@ -12,6 +12,9 @@
 /build
 /dist
 
+# keys
+constants.js
+
 # misc
 .DS_Store
 .env.local

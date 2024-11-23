@@ -3,7 +3,10 @@ import './App.css';
 import Calendar from './components/Calendar/Calendar';
 import DayView from './components/DayView/DayView';
 import Header from './components/Header/Header';
+import AllNotes from './components/AllNotes/AllNotes';
+import InformationPage from './components/InformationPage/InformationPage';
 import { get, ref, set } from 'firebase/database';
+import { SECRET_KEY } from './constants';
 import { db } from './firebase'; // Import Firebase Realtime Database functions
 
 function App() {
@@ -11,21 +14,32 @@ function App() {
     const today = new Date();
     return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
   });
-    const [notes, setNotes] = useState([]); // State to hold the notes
+  const [allNotesView, setAllNotesView] = useState(false);
+  const [notes, setNotes] = useState([]); // State to hold the notes
   const [dayNotes, setDayNotes] = useState([]); // State to hold the day notes
   const [calendarView, setCalendarView] = useState('monthly'); // Manage calendar view state
+  const [informationView, setInformationView] = useState(false); //
   //const { ipcRenderer } = window.require('electron'); // Import ipcRenderer for communication with the main process
 
   const handleDayClick = (day) => {
     setSelectedDay(day);
+    setAllNotesView(false);
   };
 
   useEffect(() => {
     const fetchNotes = async () => {
+      const secretKey = SECRET_KEY;
+      const secretRef = ref(db, 'secret');
+      const snapshot = await get(secretRef);
+
+      if (snapshot.val() !== secretKey) {
+        throw new Error('Acesso negado!');
+      }
+
       const notesRef = ref(db, 'notes/'); // Reference to all notes in the database
-      const snapshot = await get(notesRef);
-      if (snapshot.exists()) {
-        const allNotes = snapshot.val(); // Get all notes from the database
+      const notesSnapshot = await get(notesRef);
+      if (notesSnapshot.exists()) {
+        const allNotes = notesSnapshot.val(); // Get all notes from the database
 
         setNotes(allNotes); // Set the notes state as the raw structure with days as keys
       } else {
@@ -111,11 +125,17 @@ function App() {
 
   return (
     <div className="App">
-      <Header calendarView={calendarView} setCalendarView={setCalendarView} />
-      <div className="main">
-        <Calendar notes={notes} onDayClick={handleDayClick} selectedDay={selectedDay} currentView={calendarView} />
-        {selectedDay && <DayView notes={dayNotes} setNotes={setDayNotes} selectedDay={selectedDay} />}
-      </div>
+      <Header calendarView={calendarView} setCalendarView={setCalendarView} allNotesView={allNotesView} setAllNotesView={setAllNotesView} setInformationView={setInformationView}/>
+      {!informationView ?
+        <div className="main">
+          <Calendar notes={notes} onDayClick={handleDayClick} selectedDay={selectedDay} currentView={calendarView} />
+          {selectedDay && !allNotesView && <DayView notes={dayNotes} setNotes={setDayNotes} selectedDay={selectedDay} />}
+          {allNotesView && <AllNotes notes={notes} />}
+        </div>
+        : <div className="information">
+          <InformationPage />
+        </div>
+      }
     </div>
   );
 }

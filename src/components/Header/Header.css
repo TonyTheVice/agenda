@@ -2,6 +2,13 @@
     height: 6%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 8px;
     margin-bottom: 8px;
+}
+
+.app-header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 24px
 }

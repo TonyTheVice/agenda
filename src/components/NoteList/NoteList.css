@@ -17,11 +17,7 @@
   font-style: italic;
 }
 
-/* Custom scroll container */
-.scroll-container {
-  max-height: 400px; /* Set height for scrolling */
-  overflow-y: auto;
-}
+
 
 /* Style the scrollbar track */
 .scroll-container::-webkit-scrollbar {

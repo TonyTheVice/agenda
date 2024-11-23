@@ -1,0 +1,92 @@
+/* DayView.css */
+.all-notes {
+  background: antiquewhite; /* Light paper-like color */
+  height: 80%;
+  width: 30%;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto; /* Center the notebook */
+  position: relative;
+  font-family: "Georgia", serif; /* Notebook-style font */
+}
+
+.all-notes h2 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.all-notes:before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  height: calc(100% - 20px);
+  width: 20px;
+  background: repeating-linear-gradient(
+    #ddd,
+    #ddd 4px,         /* Increased spiral thickness */
+    transparent 4px,  /* Start of the gap */
+    transparent 10px  /* Larger gap between spirals */
+  );
+  border-radius: 10px 0 0 10px;
+  box-shadow: inset -2px 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.notes-container {
+  margin-top: 20px;
+  max-height: 40%;
+  overflow-y: auto; /* Scroll vertical */
+  border: 1px solid #ddd; /* Adiciona uma borda para destaque */
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.notes-day {
+  margin-bottom: 20px;
+}
+
+.note-item {
+  background: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the scrollbar track */
+.notes-container::-webkit-scrollbar {
+  width: 8px; /* Set scrollbar width */
+}
+
+/* Style the scrollbar thumb (the draggable part) */
+.notes-container::-webkit-scrollbar-thumb {
+  background-color: #888; /* Thumb color */
+  border-radius: 10px; /* Round the corners */
+  border: 2px solid transparent; /* Add a border to create space */
+  background-clip: content-box; /* Add spacing between thumb and track */
+}
+
+/* Change thumb color on hover */
+.notes-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Darker color on hover */
+}
+
+/* Style the scrollbar track (background) */
+.notes-container::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light track color */
+  border-radius: 10px; /* Round corners */
+}
+
+/* Optional: Add a "shadow" to the scrollbar track */
+.notes-container::-webkit-scrollbar-track-piece {
+  background: #f1f1f1;
+  border-radius: 10px;
+}

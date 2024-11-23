@@ -27,6 +27,12 @@ Next steps:
     - Bug Check moving between weeks if we change to month go to that month and vice versa
 - Check window screen scales and what we can do about it
 
+Next version ideas:
+- Adicionar opção para exportar as notas (ex.: PDF ou CSV).
+- Meter em mobile
+- Fazer com que a week view mostre o início das notas
+
+
 
 View Calendar:
 

@@ -4,6 +4,7 @@ import "./DayView.css";
 import { Typography } from "@mui/material";
 import NoteInput from "../NoteInput/NoteInput";
 import NoteList from "../NoteList/NoteList";
+import { SECRET_KEY } from "../../constants";
 import { db } from "../../firebase"; // Import Firebase Realtime Database functions
 
 const DayView = ({ selectedDay, notes, setNotes }) => {
@@ -12,10 +13,18 @@ const DayView = ({ selectedDay, notes, setNotes }) => {
   // Fetch notes from Firebase Realtime Database when the component mounts
   useEffect(() => {
     const fetchNotes = async () => {
+      const secretKey = SECRET_KEY;
+      const secretRef = ref(db, 'secret');
+      const snapshot = await get(secretRef);
+    
+      if (snapshot.val() !== secretKey) {
+        throw new Error('Acesso negado!');
+      }
+
       const notesRef = ref(db, "notes/" + selectedDay); // Reference to the notes for a specific day
-      const snapshot = await get(notesRef);
-      if (snapshot.exists()) {
-        setNotes(snapshot.val());
+      const notesSnapshot  = await get(notesRef);
+      if (notesSnapshot .exists()) {
+        setNotes(notesSnapshot .val());
       } else {
         setNotes([]);
       }
@@ -80,7 +89,7 @@ const DayView = ({ selectedDay, notes, setNotes }) => {
     <div className="day-view">
       <Typography
         className="day-title"
-        variant="h5"
+        variant="h2"
       >
         {new Date(selectedDay)
           .toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" })

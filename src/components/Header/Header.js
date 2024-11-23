@@ -1,26 +1,59 @@
 import React from 'react';
-import { Button } from '@mui/material'
+import { Button, IconButton } from '@mui/material'
+import InfoIcon from '@mui/icons-material/Info';
 import './Header.css'; // Add styling for the header
 
-const Header = ({ calendarView, setCalendarView }) => {
+const Header = ({ calendarView, setCalendarView, setAllNotesView, allNotesView, setInformationView }) => {
 
   const toggleView = () => {
     setCalendarView((prevView) => (prevView === 'monthly' ? 'weekly' : 'monthly'));
+    setInformationView(false);
+  };
+
+  const toggleAllNotes = () => {
+    setAllNotesView((prevAllNotes) => !prevAllNotes)
+    setInformationView(false);
+  };
+
+  const toggleInformationPage = () => {
+    setInformationView(true);
   };
 
   return (
     <header className="app-header">
-      <Button
+      <div className='app-header-buttons'>
+        <Button
+          sx={{
+            borderRadius: '8px',
+            backgroundColor: '#4056A1',
+            textTransform: "none"
+          }}
+          variant='contained'
+          onClick={toggleView}
+        >
+          Alterar para {calendarView === 'monthly' ? 'visão semanal' : 'visão mensal'}
+        </Button>
+        <Button
+          sx={{
+            borderRadius: '8px',
+            backgroundColor: '#4056A1',
+            textTransform: "none"
+          }}
+          variant='contained'
+          onClick={toggleAllNotes}
+        >
+          {allNotesView ? 'Ver dia específico' : 'Ver todas as notas'}
+        </Button>
+      </div>
+      <IconButton
         sx={{
-          borderRadius: '8px',
-          backgroundColor: '#4056A1',
           textTransform: "none"
         }}
         variant='contained'
-        onClick={toggleView}
+        onClick={toggleInformationPage}
       >
-        Alterar para {calendarView === 'monthly' ? 'visão semanal' : 'visão mensal'}
-      </Button>
+        <InfoIcon sx={{ color: "#4056A1" }} />
+      </IconButton>
       {/* Add more header elements here in the future */}
     </header>
   );
