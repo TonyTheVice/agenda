@@ -24,6 +24,7 @@ const Header = ({ setSelectedDay, calendarView, setCalendarView, setAllNotesView
   const toggleBackToAgenda = () => {
     informationView && setInformationView(false);
     allNotesView && setAllNotesView(false);
+    setSelectedDay(null);
   };
 
   return (

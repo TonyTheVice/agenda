@@ -31,7 +31,7 @@ const InformationPage = () => {
           <strong>Versão 1.0:</strong> A versão inicial da aplicação está completa e inclui várias funcionalidades essenciais.
         </Typography>
         <Typography variant="body1" paragraph>
-          Foi implementado um calendário com opção de visualização mensal e semanal, proporcionando aos utilizadores uma forma eficiente de visualizar os compromissos e as notas de forma organizada e clara.
+          Foi implementado um calendário com opção de visualização mensal e semanal incluindo notificações para alertar os utilizadores dos seus eventos, proporcionando uma forma eficiente de visualizar os compromissos e as notas de forma organizada e clara.
           A aplicação também permite a gestão completa das notas, incluindo a criação, edição e eliminação das mesmas. <br /> Adicionalmente, oferece funcionalidades de pesquisa, ordenação e filtragem, facilitando a navegação e a localização rápida de informações específicas.
         </Typography>
         <Typography variant="body1" paragraph>

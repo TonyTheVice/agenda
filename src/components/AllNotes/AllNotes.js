@@ -3,7 +3,7 @@ import "./AllNotes.css";
 import { Typography, TextField, Select, MenuItem, FormControl, Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 
-const AllNotes = ({ notes, onEdit }) => {
+const AllNotes = ({ notes, selectedDay, onEdit }) => {
   const [searchText, setSearchText] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   const [showPastNotes, setShowPastNotes] = useState(true);
@@ -31,7 +31,7 @@ const AllNotes = ({ notes, onEdit }) => {
   }, [notesArray, searchText, showPastNotes, sortOrder]);
 
   return (
-    <div className="all-notes">
+    <div className={selectedDay ? "all-notes-full" : "all-notes"}>
       <div class="title-container">
         <Typography className="title" variant="body1" gutterBottom>
           Agenda
@@ -76,7 +76,7 @@ const AllNotes = ({ notes, onEdit }) => {
           variant='contained'
           onClick={() => setShowPastNotes((prev) => !prev)}
         >
-          {showPastNotes ? "Mostrar apenas notas futuras" : "Mostrar Tudo"}
+          {showPastNotes ? "Mostrar apenas notas futuras" : "Mostrar todas as notas"}
         </Button>
       </div>
 

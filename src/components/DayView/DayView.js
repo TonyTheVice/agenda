@@ -7,7 +7,7 @@ import NoteList from "../NoteList/NoteList";
 import { SECRET_KEY } from "../../constants";
 import { db } from "../../firebase"; // Import Firebase Realtime Database functions
 
-const DayView = ({ selectedDay, notes, setNotes }) => {
+const DayView = ({ selectedDay, notes, setNotes, allNotesView }) => {
   const [editNoteIndex, setEditNoteIndex] = useState(null);
 
   // Fetch notes from Firebase Realtime Database when the component mounts
@@ -86,7 +86,7 @@ const DayView = ({ selectedDay, notes, setNotes }) => {
   };
 
   return (
-    <div className="day-view">
+    <div className={allNotesView ? "day-view-full" : "day-view"}>
       <Typography
         className="day-title"
         variant="body1"

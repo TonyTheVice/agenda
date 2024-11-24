@@ -132,15 +132,15 @@ function App() {
         </div>
         : allNotesView ?
           <div className='allnotes'>
-            <AllNotes notes={notes} onEdit={(date) => {
+            <AllNotes notes={notes} selectedDay={selectedDay} onEdit={(date) => {
               setSelectedDay(date); // Update the selected day
             }} />
-            {selectedDay && <DayView notes={dayNotes} setNotes={setDayNotes} selectedDay={selectedDay} />}
+            {selectedDay && <DayView notes={dayNotes} setNotes={setDayNotes} selectedDay={selectedDay} allNotesView={allNotesView} />}
           </div>
           :
           <div className="main">
             <Calendar notes={notes} onDayClick={handleDayClick} selectedDay={selectedDay} currentView={calendarView} />
-            {selectedDay && <DayView notes={dayNotes} setNotes={setDayNotes} selectedDay={selectedDay} />}
+            {selectedDay && <DayView notes={dayNotes} setNotes={setDayNotes} selectedDay={selectedDay} allNotesView={allNotesView}/>}
           </div>
       }
     </div>
