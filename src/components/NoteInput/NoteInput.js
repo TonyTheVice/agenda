@@ -117,8 +117,12 @@ const NoteInput = ({ onSaveNote, editingNote, onCancelEdit }) => {
           <Button
             className="note-input-button"
             variant="contained"
+            disabled={text.trim() === ""}
             onClick={handleSave}
-            sx={{ textTransform: "none", backgroundColor: "#8540c8" }}
+            sx={{ textTransform: "none", backgroundColor: "#8540c8", "&.Mui-disabled": {
+              backgroundColor: "#black", // Disabled background color
+              color: "#9e9e9e", // Disabled text color
+            } }}
           >
             {editingNote ? "Guardar alterações" : "Adicionar nota"}
           </Button>
