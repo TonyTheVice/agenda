@@ -118,7 +118,7 @@ const NoteInput = ({ onSaveNote, editingNote, onCancelEdit }) => {
             className="note-input-button"
             variant="contained"
             onClick={handleSave}
-            sx={{ textTransform: "none", backgroundColor: "#4056A1" }}
+            sx={{ textTransform: "none", backgroundColor: "#8540c8" }}
           >
             {editingNote ? "Guardar alterações" : "Adicionar nota"}
           </Button>

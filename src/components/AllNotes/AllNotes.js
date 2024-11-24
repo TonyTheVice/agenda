@@ -1,20 +1,19 @@
 import React, { useState, useMemo } from "react";
 import "./AllNotes.css";
-import { Typography, TextField, Select, MenuItem, FormControl, InputLabel, Button } from "@mui/material";
+import { Typography, TextField, Select, MenuItem, FormControl, Button, IconButton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 
-const AllNotes = ({ notes }) => {
+const AllNotes = ({ notes, onEdit }) => {
   const [searchText, setSearchText] = useState("");
-  const [sortOrder, setSortOrder] = useState("newest"); // 'newest' or 'oldest'
-  const [showPastNotes, setShowPastNotes] = useState(false);
+  const [sortOrder, setSortOrder] = useState("");
+  const [showPastNotes, setShowPastNotes] = useState(true);
 
-  // Transformar o objeto em uma lista para facilitar o processamento
   const notesArray = useMemo(() => {
     return Object.entries(notes).flatMap(([date, notesList]) =>
       notesList.map(note => ({ date, ...note }))
     );
   }, [notes]);
 
-  // Filtrar as notas com base no searchText e no filtro de datas
   const filteredNotes = useMemo(() => {
     const today = new Date();
     return notesArray
@@ -33,46 +32,57 @@ const AllNotes = ({ notes }) => {
 
   return (
     <div className="all-notes">
-      <Typography variant="h5" gutterBottom>
-        Todas as Notas
-      </Typography>
+      <div class="title-container">
+        <Typography className="title" variant="body1" gutterBottom>
+          Agenda
+        </Typography>
+      </div>
 
-      {/* Barra de Pesquisa */}
-      <TextField
-        label="Pesquisar notas"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
-      />
+      <div>
+        <TextField
+          InputLabelProps={{ shrink: false }}
+          label={searchText ? "" : "Pesquisar notas"}
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          sx={{
+            input: { background: "white", borderRadius: "8px" },
+          }}
+        />
 
-      {/* Sort */}
-      <FormControl fullWidth margin="normal">
-        <InputLabel id="sort-label">Ordenar por</InputLabel>
-        <Select
-          labelId="sort-label"
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
+        <FormControl fullWidth margin="normal" sx={{ color: "white" }}>
+          <Select
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
+            displayEmpty
+            sx={{ backgroundColor: "white", borderRadius: "8px", color: sortOrder === "" && "#666666" }}
+          >
+            <MenuItem value="" disabled>
+              Ordenar por
+            </MenuItem>
+            <MenuItem value="newest">Mais recentes</MenuItem>
+            <MenuItem value="oldest">Mais antigas</MenuItem>
+          </Select>
+        </FormControl>
+        <Button
+          sx={{
+            borderRadius: '8px',
+            backgroundColor: '#8540c8',
+            textTransform: "none",
+            margin: "16px 0",
+          }}
+          variant='contained'
+          onClick={() => setShowPastNotes((prev) => !prev)}
         >
-          <MenuItem value="newest">Mais novas primeiro</MenuItem>
-          <MenuItem value="oldest">Mais antigas primeiro</MenuItem>
-        </Select>
-      </FormControl>
+          {showPastNotes ? "Mostrar apenas notas futuras" : "Mostrar Tudo"}
+        </Button>
+      </div>
 
-      {/* Filtro */}
-      <Button
-        variant={showPastNotes ? "contained" : "outlined"}
-        color="primary"
-        onClick={() => setShowPastNotes((prev) => !prev)}
-      >
-        {showPastNotes ? "Mostrar Apenas Futuros" : "Mostrar Tudo"}
-      </Button>
-
-      {/* Notas Filtradas */}
       <div className="notes-container">
         {filteredNotes.length === 0 ? (
-          <Typography variant="body1" color="textSecondary">
+          <Typography className="no-notes-warning">
             Nenhuma nota encontrada.
           </Typography>
         ) : (
@@ -85,16 +95,24 @@ const AllNotes = ({ notes }) => {
             }
             return acc;
           }, []).map(({ date, notes }) => (
-            <div key={date} className="notes-day">
-              <Typography variant="h6" gutterBottom>
-                {date}
-              </Typography>
-              <div className="notes-list">
+            <div key={date} className="note-group">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <Typography className="date-header">
+                  {new Date(date)
+                    .toLocaleDateString("pt-PT", { day: "numeric", month: "long", year: "numeric" })
+                    .replace(/(\sde\s)([a-z])/g, (_, preposition, monthChar) => {
+                      return `${preposition}${monthChar.toUpperCase()}`;
+                    })}
+                </Typography>
+                <IconButton onClick={() => onEdit(date)} color="primary" sx={{ background: "white" }}>
+                  <EditIcon />
+                </IconButton>
+              </div>
+              <div>
                 {notes.map((note, index) => (
-                  <div key={index} className="note-item">
-                    <Typography variant="body1">{note.text}</Typography>
-                    <Typography variant="caption" color="textSecondary">
-                      {note.isAllDay ? "Dia inteiro" : note.time}
+                  <div className="note-item" key={index}>
+                    <Typography className="note-text" variant="subtitle2">
+                      <strong style={{ color: "greenyellow" }}>{note.time === "All Day" ? "" : note.time + ":"}</strong> {note.text}
                     </Typography>
                   </div>
                 ))}

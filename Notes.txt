@@ -17,7 +17,7 @@ Next steps:
     - Change everything to material ui - icons, typography ...
 - Clean code
     - Make month view and weekly view a single button and separate from Calendar component
-- Keep changing styles
+    - Keep changing styles
     - Make a "All notes" view
     - Make it possible to send a notification(with sound) when the time comes for a note
     - Bug Check for notification trigger doesnt work for notes inserted currently
@@ -25,7 +25,7 @@ Next steps:
     - Add security to database
     - Add a "next releases" page(new features, link to github(make it public), link to database?)
     - Bug Check moving between weeks if we change to month go to that month and vice versa
-- Check window screen scales and what we can do about it
+    - Check window screen scales and what we can do about it
 
 Next version ideas:
 - Adicionar opção para exportar as notas (ex.: PDF ou CSV).

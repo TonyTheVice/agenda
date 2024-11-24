@@ -1,25 +1,16 @@
-/* DayView.css */
 .all-notes {
-  background: antiquewhite; /* Light paper-like color */
-  height: 80%;
-  width: 80%;
+
+  background-color: #1e1e1e;
+  height: calc(100% - 66px);
+  width: 100%;
   border: 2px solid #ddd;
   border-radius: 10px;
   padding: 20px;
-  margin: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 20px auto; /* Center the notebook */
+  max-width: 600px;
   position: relative;
-  font-family: "Georgia", serif; /* Notebook-style font */
-}
-
-.all-notes h2 {
-  font-size: 1.5rem;
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 10px;
+  font-family: "Georgia", serif;
+  /* Notebook-style font */
 }
 
 .all-notes:before {
@@ -29,59 +20,109 @@
   left: -10px;
   height: calc(100% - 20px);
   width: 20px;
-  background: repeating-linear-gradient(
-    #ddd,
-    #ddd 4px,         /* Increased spiral thickness */
-    transparent 4px,  /* Start of the gap */
-    transparent 10px  /* Larger gap between spirals */
-  );
+  background: repeating-linear-gradient(#ddd,
+      #ddd 4px,
+      /* Increased spiral thickness */
+      transparent 4px,
+      /* Start of the gap */
+      transparent 10px
+      /* Larger gap between spirals */
+    );
   border-radius: 10px 0 0 10px;
   box-shadow: inset -2px 0 4px rgba(0, 0, 0, 0.2);
 }
 
-.notes-container {
-  margin-top: 20px;
-  max-height: 40%;
-  overflow-y: auto; /* Scroll vertical */
-  border: 1px solid #ddd; /* Adiciona uma borda para destaque */
-  padding: 10px;
-  border-radius: 5px;
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.notes-day {
-  margin-bottom: 20px;
+.title {
+  color: white;
+  font-weight: bold;
+  border: 1px solid;
+  background-color: #4056A2;
+  padding: 5px 10px; /* Adjust padding for text spacing */
+  display: inline-block; /* Border fits text content */
+}
+
+
+.notes-container {
+  max-height: 50%;
+  overflow-y: auto;
+  border-radius: 10px;
+  padding: 0px 12px 8px 8px;
+  gap: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.no-notes-warning {
+  color: white;
+  font-style: italic;
+  text-align: center;
+}
+
+.note-group {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 8px;
+  background: #282828;
+  border-radius: 12px;
+}
+
+.date-header {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 8px;
 }
 
 .note-item {
-  background: #f9f9f9;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: #4056A1;
+  border-radius: 24px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  color: white;
 }
+
+.note-text {
+  font-style: italic;
+}
+
 
 /* Style the scrollbar track */
 .notes-container::-webkit-scrollbar {
-  width: 8px; /* Set scrollbar width */
+  width: 8px;
+  /* Set scrollbar width */
 }
 
 /* Style the scrollbar thumb (the draggable part) */
 .notes-container::-webkit-scrollbar-thumb {
-  background-color: #888; /* Thumb color */
-  border-radius: 10px; /* Round the corners */
-  border: 2px solid transparent; /* Add a border to create space */
-  background-clip: content-box; /* Add spacing between thumb and track */
+  background-color: #888;
+  /* Thumb color */
+  border-radius: 10px;
+  /* Round the corners */
+  border: 2px solid transparent;
+  /* Add a border to create space */
+  background-clip: content-box;
+  /* Add spacing between thumb and track */
 }
 
 /* Change thumb color on hover */
 .notes-container::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* Darker color on hover */
+  background-color: #555;
+  /* Darker color on hover */
 }
 
 /* Style the scrollbar track (background) */
 .notes-container::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Light track color */
-  border-radius: 10px; /* Round corners */
+  background: #f1f1f1;
+  /* Light track color */
+  border-radius: 10px;
+  /* Round corners */
 }
 
 /* Optional: Add a "shadow" to the scrollbar track */

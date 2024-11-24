@@ -4,7 +4,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import './Header.css'; // Add styling for the header
 
-const Header = ({ calendarView, setCalendarView, setAllNotesView, allNotesView, informationView, setInformationView }) => {
+const Header = ({ setSelectedDay, calendarView, setCalendarView, setAllNotesView, allNotesView, informationView, setInformationView }) => {
 
   const toggleView = () => {
     setCalendarView((prevView) => (prevView === 'monthly' ? 'weekly' : 'monthly'));
@@ -14,6 +14,7 @@ const Header = ({ calendarView, setCalendarView, setAllNotesView, allNotesView, 
   const toggleAllNotes = () => {
     setAllNotesView(true)
     setInformationView(false);
+    setSelectedDay(null);
   };
 
   const toggleInformationPage = () => {
@@ -33,7 +34,7 @@ const Header = ({ calendarView, setCalendarView, setAllNotesView, allNotesView, 
             <Button
               sx={{
                 borderRadius: '8px',
-                backgroundColor: '#4056A1',
+                backgroundColor: '#8540c8',
                 textTransform: "none"
               }}
               variant='contained'
@@ -47,7 +48,7 @@ const Header = ({ calendarView, setCalendarView, setAllNotesView, allNotesView, 
             <Button
               sx={{
                 borderRadius: '8px',
-                backgroundColor: '#4056A1',
+                backgroundColor: '#8540c8',
                 textTransform: "none"
               }}
               variant='contained'
@@ -58,13 +59,13 @@ const Header = ({ calendarView, setCalendarView, setAllNotesView, allNotesView, 
             <Button
               sx={{
                 borderRadius: '8px',
-                backgroundColor: '#4056A1',
+                backgroundColor: '#8540c8',
                 textTransform: "none"
               }}
               variant='contained'
               onClick={toggleAllNotes}
             >
-              {'Ver todas as notas'}
+              {'Agenda'}
             </Button>
           </>
         }
@@ -74,7 +75,7 @@ const Header = ({ calendarView, setCalendarView, setAllNotesView, allNotesView, 
           sx={{
             textTransform: "none",
             marginLeft: '24px',
-            background: "#4056A1"
+            background: "#8540c8"
           }}
           variant='contained'
           onClick={toggleInformationPage}

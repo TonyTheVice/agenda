@@ -16,7 +16,7 @@ const NoteList = ({ notes, onDeleteNote, onEditNote, editNoteIndex  }) => {
       </Typography>
       {notes.length > 0 ? (
         <div className="scroll-container" style={{ maxHeight: "90%", overflowY: "auto" }}>  {/* Added scroll container */}
-          <List sx={{ paddingRight: '24px', display:'flex', flexDirection: 'column', gap: '12px' }}>
+          <List sx={{ paddingRight: '12px', display:'flex', flexDirection: 'column', gap: '12px' }}>
             {notes.map((note, index) => (
               <ListItem key={index} divider 
               sx={{
@@ -28,7 +28,7 @@ const NoteList = ({ notes, onDeleteNote, onEditNote, editNoteIndex  }) => {
                   <ListItemText
                     primary={
                       <Typography sx={{color: "white", fontStyle: "italic"}} variant="subtitle2">
-                        <strong>{note.time === "All Day" ? "" : note.time+':'}</strong> {note.text}
+                        <strong style={{color: "greenyellow"}}>{note.time === "All Day" ? "" : note.time+':'}</strong> {note.text}
                       </Typography>
                     }
                   />
