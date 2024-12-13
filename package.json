@@ -1,6 +1,8 @@
 {
   "name": "my-agenda",
   "version": "1.0.0",
+  "description": "Uma simples Agenda para gerir tarefas e eventos.",
+  "author": "António Vitorino",
   "private": true,
   "homepage": "./",
   "dependencies": {
@@ -55,6 +57,7 @@
       }
     ],
     "win": {
+      "sign": false,
       "target": "nsis",
       "icon": "public/icon.ico"
     },
