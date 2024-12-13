@@ -1,19 +1,22 @@
 const { app, BrowserWindow, Notification, ipcMain } = require('electron');
+const path = require('path');
 
 let win;
 
 function createWindow() {
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 800,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false, // Required for `ipcRenderer`
     },
   });
 
-  win.loadURL('http://localhost:3000');
-  //win.loadFile(path.join(__dirname, 'build', 'index.html'));
+  win.maximize();
+
+  //win.loadURL('http://localhost:3000');
+  win.loadFile(path.join(__dirname, 'build', 'index.html'));
 
   win.on('closed', () => {
     win = null;

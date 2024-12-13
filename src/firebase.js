@@ -1,9 +1,7 @@
-// src/firebase.js
-
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, get, child } from "firebase/database";
 
-// Your web app's Firebase configuration
+// Web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC5ED_qIxmFdKw2dh1r8Qf0PXKi73l4fj0",
   authDomain: "agenda-8640a.firebaseapp.com",

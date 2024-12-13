@@ -3,7 +3,7 @@ import "./AllNotes.css";
 import { Typography, TextField, Select, MenuItem, FormControl, Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 
-const AllNotes = ({ notes, selectedDay, onEdit }) => {
+function AllNotes({ notes, selectedDay, onEdit })  {
   const [searchText, setSearchText] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   const [showPastNotes, setShowPastNotes] = useState(true);
@@ -48,7 +48,7 @@ const AllNotes = ({ notes, selectedDay, onEdit }) => {
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           sx={{
-            input: { background: "white", borderRadius: "8px" },
+            input: { background: "ghostwhite", borderRadius: "8px" },
           }}
         />
 
@@ -57,7 +57,7 @@ const AllNotes = ({ notes, selectedDay, onEdit }) => {
             value={sortOrder}
             onChange={(e) => setSortOrder(e.target.value)}
             displayEmpty
-            sx={{ backgroundColor: "white", borderRadius: "8px", color: sortOrder === "" && "#666666" }}
+            sx={{ backgroundColor: "ghostwhite", borderRadius: "8px", color: sortOrder === "" && "#666666" }}
           >
             <MenuItem value="" disabled>
               Ordenar por

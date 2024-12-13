@@ -1,6 +1,6 @@
 {
   "name": "my-agenda",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "homepage": "./",
   "dependencies": {
@@ -37,7 +37,7 @@
   "build": {
     "extends": null,
     "appId": "com.myagendaapp",
-    "productName": "My Agenda App",
+    "productName": "My Agenda",
     "files": [
       "build/**/*",
       "electron-main.js"
@@ -57,6 +57,11 @@
     "win": {
       "target": "nsis",
       "icon": "public/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "createDesktopShortcut": true
     },
     "mac": {
       "category": "public.app-category.productivity"
